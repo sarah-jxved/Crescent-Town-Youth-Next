@@ -999,6 +999,13 @@ html{scroll-padding-top:82px}
   #summer-2026 .camp-photo-refresh .camp-collage-photo{margin:0;flex:var(--overview-ratio) 1 0%;min-width:0;aspect-ratio:var(--overview-ratio);border-width:3px}
   #summer-2026 .camp-photo-refresh .camp-collage-photo img{height:100%;object-fit:contain}
 }
+@media(max-width:600px){
+  #summer-2026 .camp-photo-refresh{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:12px;columns:auto;width:100%;max-width:none;align-items:start}
+  #summer-2026 .overview-photo-row{display:contents}
+  #summer-2026 .camp-photo-refresh .camp-collage-photo{margin:0;min-width:0;width:100%;height:auto;aspect-ratio:auto;align-self:start}
+  #summer-2026 .camp-photo-refresh .camp-collage-photo img{width:100%;height:auto;object-fit:contain}
+  #home .photo-stack>.sticker.two{right:12px;bottom:8px;transform:translateY(100%)}
+}
 
 </style>
 <style id="impact-stats-style">
@@ -1374,7 +1381,7 @@ html{scroll-padding-top:82px}
     </div>
   </section>
   <section class="impact-testimonials" aria-labelledby="impact-testimonials-title" aria-roledescription="carousel">
-    <div class="impact-section-heading"><h2 id="impact-testimonials-title">Parent Testimonials</h2><div class="impact-strip-controls"><button type="button" data-testimonial-step="-1" aria-label="Previous parent testimonial" title="Previous parent testimonial">&#8592;</button><button type="button" data-testimonial-step="1" aria-label="Next parent testimonial" title="Next parent testimonial">&#8594;</button></div></div>
+    <div class="impact-section-heading"><h2 id="impact-testimonials-title">Parent Testimonials</h2><div class="impact-strip-controls"><button type="button" data-testimonial-step="-1" aria-label="Previous parent testimonial" title="Previous parent testimonial" disabled>&#8592;</button><button type="button" data-testimonial-step="1" aria-label="Next parent testimonial" title="Next parent testimonial">&#8594;</button></div></div>
     <div class="testimonial-stage"><figure class="parent-testimonial is-current" role="group" aria-roledescription="slide" aria-label="1 of 5" aria-hidden="false"><blockquote><p>The camp was a wonderful opportunity for our child and our family, especially because we are new to Canada. Having access to a free summer camp made it possible for our child to participate, make new friends, and enjoy a positive summer experience. We are very grateful for this opportunity.</p></blockquote><figcaption>Mozahidul</figcaption></figure>
 <figure class="parent-testimonial" role="group" aria-roledescription="slide" aria-label="2 of 5" aria-hidden="true"><blockquote><p>We would love to see more free programs like this in the future. It would be wonderful to have more STEM activities, coding and robotics, science experiments, arts and crafts, engineering challenges, and technology-based projects.</p></blockquote><figcaption>Muniba</figcaption></figure>
 <figure class="parent-testimonial" role="group" aria-roledescription="slide" aria-label="3 of 5" aria-hidden="true"><blockquote><p>My child got so much knowledge about science and technology, got interested in robotics and now talks more about technology.</p></blockquote><figcaption>Madiha</figcaption></figure>
@@ -2036,9 +2043,13 @@ html{scroll-padding-top:82px}
   const section=root.querySelector('.impact-testimonials');
   const slides=Array.from(section.querySelectorAll('.parent-testimonial'));
   const dots=Array.from(section.querySelectorAll('[data-testimonial-index]'));
+  const testimonialPrevious=section.querySelector('[data-testimonial-step="-1"]');
+  const testimonialNext=section.querySelector('[data-testimonial-step="1"]');
   let current=0;
   function show(index,announce=true){
-    current=(index+slides.length)%slides.length;
+    current=Math.max(0,Math.min(index,slides.length-1));
+    testimonialPrevious.disabled=current===0;
+    testimonialNext.disabled=current===slides.length-1;
     slides.forEach((slide,i)=>{
       slide.classList.toggle('is-current',i===current);
       slide.setAttribute('aria-hidden',String(i!==current));
