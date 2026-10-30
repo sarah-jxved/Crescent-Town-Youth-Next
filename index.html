@@ -1000,11 +1000,12 @@ html{scroll-padding-top:82px}
   #summer-2026 .camp-photo-refresh .camp-collage-photo img{height:100%;object-fit:contain}
 }
 @media(max-width:600px){
-  #summer-2026 .camp-photo-refresh{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:12px;columns:auto;width:100%;max-width:none;align-items:start}
+  #summer-2026 .camp-photo-refresh{display:block;columns:2;column-gap:12px;width:100%;max-width:none}
   #summer-2026 .overview-photo-row{display:contents}
-  #summer-2026 .camp-photo-refresh .camp-collage-photo{margin:0;min-width:0;width:100%;height:auto;aspect-ratio:auto;align-self:start}
+  #summer-2026 .camp-photo-refresh .camp-collage-photo{margin:0 0 12px;min-width:0;width:100%;height:auto;aspect-ratio:auto}
+  #summer-2026 .overview-photo-row:last-child .camp-collage-photo:last-child{column-span:all;width:calc((100% - 12px)/2);margin:0 auto 12px}
   #summer-2026 .camp-photo-refresh .camp-collage-photo img{width:100%;height:auto;object-fit:contain}
-  #home .photo-stack>.sticker.two{right:12px;bottom:8px;transform:translateY(100%)}
+  #home .photo-stack>.sticker.two{right:12px;bottom:8px;transform:translateY(50%)}
 }
 
 </style>
